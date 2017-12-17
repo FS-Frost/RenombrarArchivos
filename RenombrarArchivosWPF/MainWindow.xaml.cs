@@ -37,7 +37,7 @@ namespace RenombrarArchivosWPF {
             
             // Ingresando consejos.
             txt_Filtro.ToolTip = "Ingrese expresión regular para C#.";
-            txt_Nombre.ToolTip = "Ingrese expresión regular para C#.\nColoque un \"|n|\" donde quiera que aparezca la numeración.\nEjemplo: Video |n| -> Video 01, Video 02, etc.";
+            txt_Nombre.ToolTip = "Ingrese el nombre tipo para los archivos. Coloque un \"|n|\" donde quiera que aparezca la numeración.\nEjemplo: Video |n| -> Video 01, Video 02, etc.";
             btn_SeleccionarCarpeta.ToolTip = "Presione para seleccionar la carpeta con los archivos a renombrar.";
             btn_CambiarNombres.ToolTip = "Presione para renombrar los archivos seleccionados.";
             btn_Deshacer.ToolTip = "Presione para restaurar los nombres de los archivos, sólo en caso de que no se modificaran externamente.";
@@ -104,9 +104,15 @@ namespace RenombrarArchivosWPF {
 
             // Verificando que la palabra coincida en el filtro.
             try {
-                var regex = new Regex(txt_Filtro.Text);
-                var match = regex.Match(nombre);
-                if (match.Success) {
+                // Regex del filtro.
+                var regexFiltro = new Regex(txt_Filtro.Text);
+                var matchFiltro = regexFiltro.Match(nombre);
+
+                // Regex de numeración.
+                var regexNumeracion = new Regex(@"(\d+)");
+                var matchNumeracion = regexNumeracion.Match(nombre);
+
+                if (matchFiltro.Success && matchNumeracion.Success) {
                     return true;
                 }
             }
