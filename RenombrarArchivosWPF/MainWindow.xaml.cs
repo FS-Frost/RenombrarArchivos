@@ -48,14 +48,19 @@ namespace RenombrarArchivosWPF {
 
             // Cargando último directorio de trabajo.
             lbl_Directorio.Content = Settings.Default.UltimoDirectorio;
-            listaArchivos = Directory.GetFiles(lbl_Directorio.Content.ToString()).ToList();
-            listaGrid.AddRange(from x in listaArchivos
-                               select new GridValue(x));
-            ActualizarGrid();
 
-            ActivarNotificacion("Último directorio cargado automágicamente.", Colores.Negro);
+            if (Directory.Exists(lbl_Directorio.Content.ToString())) {
+                listaArchivos = Directory.GetFiles(lbl_Directorio.Content.ToString()).ToList();
+                listaGrid.AddRange(from x in listaArchivos
+                                   select new GridValue(x));
+                ActualizarGrid();
+                ActivarNotificacion("Último directorio cargado automágicamente.", Colores.Negro);
+            }
         }
 
+        /// <summary>
+        /// Invoca diálogo para establecer carpeta de trabajo.
+        /// </summary>
         public void SeleccionarCarpeta() {
             DesactivarNotificacion();
 
@@ -66,11 +71,20 @@ namespace RenombrarArchivosWPF {
             var resultado = dialogo.ShowDialog();
 
             try {
+                // Se actúa si el resultado no es nulo.
                 if (resultado.HasValue) {
+                    // Colocando directorio en el label.
+                    // "FileName" corresponde al directorio.
+                    // Es un error de implementación de WPFFolderBrowser.
                     lbl_Directorio.Content = dialogo.FileName;
+
+                    // Colocando como último directorio en la configuración.
                     Settings.Default.UltimoDirectorio = dialogo.FileName;
                     
+                    // Obteniendo lista string de archivos en el directorio.
                     listaArchivos = Directory.GetFiles(lbl_Directorio.Content.ToString()).ToList();
+                    
+                    // Generando lista grid con todos los archivos.
                     listaGrid = (from x in listaArchivos
                                        select new GridValue(x)).ToList();
                 }
@@ -78,7 +92,12 @@ namespace RenombrarArchivosWPF {
             catch (Exception) {
             }
         }
-        
+
+        /// <summary>
+        /// Indica si un archivo es válido según el filtro.
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns></returns>
         public bool EsArchivoValido(string nombre) {
             DesactivarNotificacion();
 
@@ -97,20 +116,30 @@ namespace RenombrarArchivosWPF {
             return false;
         }
 
+        /// <summary>
+        /// Actualiza los elementos en el grid.
+        /// </summary>
         private void ActualizarGrid() {
+            // Inicializando lista grid filtrada.
             listaGridFiltrada = new List<GridValue>();
+
+            // Agregando archivos válidos según filtro en la lista grid filtrada.
             listaGridFiltrada.AddRange(from x in listaGrid
                                        where EsArchivoValido(x.NombreActual) == true
                                        select x);
+            
             // Estableciendo las líneas como contenido del grid.
             dataGrid_Archivos.ItemsSource = null;
             dataGrid_Archivos.ItemsSource = listaGridFiltrada;
 
+            // Actualizando barra de estado.
             ActualizarBarraEstado();
         }
 
+        /// <summary>
+        /// Actualiza los valores en la barra de estado.
+        /// </summary>
         private void ActualizarBarraEstado() {
-            // Actualizando barra de estado.
             txtb_NumArchivos.Text = "Archivos: " + listaGrid.Count;
             txtb_NumFiltrados.Text = "Filtrados: " + listaGridFiltrada.Count;
         }
@@ -127,6 +156,11 @@ namespace RenombrarArchivosWPF {
             Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Genera un diálogo de advertencia con el texto ingresado.
+        /// </summary>
+        /// <param name="texto">Texto a mostrar.</param>
+        /// <param name="args">Argumentos para string.Format().</param>
         static public void Mensaje(string texto, params object[] args) {
             MessageBox.Show(string.Format(texto, args), "Advertencia", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
@@ -146,13 +180,18 @@ namespace RenombrarArchivosWPF {
         private void txt_Nombre_KeyUp(object sender, System.Windows.Input.KeyEventArgs e) {
             DesactivarNotificacion();
 
+            // Verificando la expresión contenga "|n|". Si no está, se anula el flujo.
             if (!txt_Nombre.Text.Contains("|n|")) {
                 ActivarNotificacion("El filtro debe contener \"|n|\", que indica la numeración.", Colores.Rojo);
                 return;
             }
 
+            // Verificando que se presione Enter para actuar.
             if (e.Key == System.Windows.Input.Key.Enter) {
+                // Agregando nombre nuevo a cada elemento en el grid, donde se asocia su captura con la expresión.
                 listaGridFiltrada.ForEach(x => x.NombreNuevo = string.Format(txt_Nombre.Text.Replace("|n|", "{0}"), x.Captura) + x.Extension);
+
+                // Actualizando lista del grid, que ahora cuenta con los nombres nuevos ingresados.
                 dataGrid_Archivos.ItemsSource = null;
                 dataGrid_Archivos.ItemsSource = listaGridFiltrada;
 
@@ -160,7 +199,13 @@ namespace RenombrarArchivosWPF {
             }
         }
 
+        /// <summary>
+        /// Actualiza la notificación en la barra de estado.
+        /// </summary>
+        /// <param name="texto">Texto a mostrar.</param>
+        /// <param name="color">Color del texto.</param>
         private void ActivarNotificacion(string texto, Colores color) {
+            // Obteniendo color.
             var c = Colors.Black;
             switch (color) {
                 case Colores.Rojo:
@@ -172,10 +217,17 @@ namespace RenombrarArchivosWPF {
                 default:
                     break;
             }
+
+            // Aplicando color.
             txtb_Notificación.Foreground = new SolidColorBrush(c);
+
+            // Ingresando texto.
             txtb_Notificación.Text = texto;
         }
 
+        /// <summary>
+        /// Anula el texto en la notificación de la barra de estado.
+        /// </summary>
         private void DesactivarNotificacion() {
             txtb_Notificación.Text = string.Empty;
         }
@@ -184,15 +236,18 @@ namespace RenombrarArchivosWPF {
             DesactivarNotificacion();
 
             try {
+                // Estableciendo elementos del grid que se modificarán.
                 var listaModificar = new List<GridValue>();
                 listaModificar.AddRange(from x in listaGridFiltrada
                                         where x.Modificar == true
                                         where ArchivoExiste(x.NombreActual) == true
-                                        where ArchivoNoExiste(x.NombreNuevo) == true
+                                        where !ArchivoExiste(x.NombreNuevo) == true
                                         select x);
 
+                // Se copia la lista a modificar para tener la opción de deshacer.
                 listaGridDeshacer = listaModificar;
 
+                // Renombrando archivos.
                 listaModificar.ForEach(x =>
                 FileSystem.RenameFile(lbl_Directorio.Content.ToString() +
                     "\\" +
@@ -210,11 +265,12 @@ namespace RenombrarArchivosWPF {
         private void btn_Deshacer_Click(object sender, RoutedEventArgs e) {
             DesactivarNotificacion();
 
+            // Se usa la misma lógica de btn_CambiarNombres_Click, pero con los valores inversos.
             try {
                 var listaModificar = new List<GridValue>();
                 listaModificar.AddRange(from x in listaGridDeshacer
                                         where ArchivoExiste(x.NombreNuevo) == true
-                                        where ArchivoNoExiste(x.NombreActual) == true
+                                        where !ArchivoExiste(x.NombreActual) == true
                                         select x);
 
                 listaModificar.ForEach(x =>
@@ -232,14 +288,14 @@ namespace RenombrarArchivosWPF {
             }
         }
 
+        /// <summary>
+        /// Indica si el archivo existe en el sistema según el directorio de trabajo.
+        /// </summary>
+        /// <param name="nombre">Nombre del archivo incluyendo extensión.</param>
+        /// <returns></returns>
         private bool ArchivoExiste(string nombre) {
             var ruta = lbl_Directorio.Content.ToString() + "\\" + nombre;
             return File.Exists(ruta);
-        }
-
-        private bool ArchivoNoExiste(string nombre) {
-            var ruta = lbl_Directorio.Content.ToString() + "\\" + nombre;
-            return !File.Exists(ruta);
         }
     }
 }
