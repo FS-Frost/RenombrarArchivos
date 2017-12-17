@@ -1,0 +1,16 @@
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\bin\Debug\RenombrarArchivosWPF.exe.config
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\bin\Debug\RenombrarArchivosWPF.exe
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\bin\Debug\RenombrarArchivosWPF.pdb
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF.csprojResolveAssemblyReference.cache
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\MainWindow.g.cs
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\App.g.cs
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF_MarkupCompile.cache
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF_MarkupCompile.lref
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\MainWindow.baml
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF.g.resources
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF.Properties.Resources.resources
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF.csproj.GenerateResource.Cache
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF.csproj.CoreCompileInputs.cache
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF.exe
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\obj\Debug\RenombrarArchivosWPF.pdb
+C:\Users\Ed\Desktop\Mis cosas\Programación\C#\RenombrarArchivos\RenombrarArchivosWPF\bin\Debug\WPFFolderBrowser.dll
