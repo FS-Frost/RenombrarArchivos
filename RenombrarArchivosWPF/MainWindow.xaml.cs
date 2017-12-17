@@ -49,6 +49,7 @@ namespace RenombrarArchivosWPF {
             // Cargando último directorio de trabajo.
             lbl_Directorio.Content = Settings.Default.UltimoDirectorio;
 
+            // Verificando que el directorio exista para proseguir.
             if (Directory.Exists(lbl_Directorio.Content.ToString())) {
                 listaArchivos = Directory.GetFiles(lbl_Directorio.Content.ToString()).ToList();
                 listaGrid.AddRange(from x in listaArchivos
