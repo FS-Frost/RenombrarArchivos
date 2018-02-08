@@ -75,8 +75,6 @@ namespace RenombrarArchivosWPF {
                 // Se actúa si el resultado no es nulo.
                 if (resultado.HasValue) {
                     // Colocando directorio en el label.
-                    // "FileName" corresponde al directorio.
-                    // Es un error de implementación de WPFFolderBrowser.
                     lbl_Directorio.Content = dialogo.FileName;
 
                     // Colocando como último directorio en la configuración.
