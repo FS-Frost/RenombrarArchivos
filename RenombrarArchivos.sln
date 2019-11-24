@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenombrarArchivosWPF", "RenombrarArchivosWPF\RenombrarArchivosWPF.csproj", "{38E00FB2-557F-4467-B789-B941FA6D69AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenombrarArchivosConsola", "RenombrarArchivosConsola\RenombrarArchivosConsola.csproj", "{0034F999-7EEC-4A07-AE9C-32B5EEEEB675}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{38E00FB2-557F-4467-B789-B941FA6D69AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38E00FB2-557F-4467-B789-B941FA6D69AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38E00FB2-557F-4467-B789-B941FA6D69AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0034F999-7EEC-4A07-AE9C-32B5EEEEB675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0034F999-7EEC-4A07-AE9C-32B5EEEEB675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0034F999-7EEC-4A07-AE9C-32B5EEEEB675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0034F999-7EEC-4A07-AE9C-32B5EEEEB675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
